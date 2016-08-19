@@ -17,7 +17,7 @@ fn main() {
             let mut conn = try!(listener.accept());
             mioco::spawn(move || -> io::Result<()> {
                 let (tx, rx) = mioco::sync::mpsc::sync_channel(5);
-                
+
                 let mut buf = vec![0u8; 10];
                 loop {
                     select!(
@@ -28,7 +28,7 @@ fn main() {
                         },
                         r:rx => {
                             while let Ok(data) = rx.try_recv() {}
-                        }
+                        },
                     );
                 }
                 Ok(())
